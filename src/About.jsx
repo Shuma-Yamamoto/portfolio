@@ -131,28 +131,26 @@ function About() {
   return (
     <>
       <canvas id='canvas'></canvas>
-      <main>
-        <div>
-          <p className='about'>About</p>
-          <p className='name'>S.Yamamoto</p>
-          <p className='bio'>
-            学生エンジニアです。<br />
-            上智大学 経済学部 経済学科 所属。<br />
-            ISFJという論文の大会に出場しています。
-          </p>
+      <div className='about-container'>
+        <p className='about'>About</p>
+        <p className='name'>S.Yamamoto</p>
+        <p className='bio'>
+          学生エンジニアです。<br />
+          上智大学 経済学部 経済学科 所属。<br />
+          ISFJという論文の大会に出場しています。
+        </p>
 
-          <p className='bio'>
-            最近はフロントエンドを勉強中。<br />
-            プライベートではとにかく面白いものを,<br />
-            ビジネスでは誰かの役に立つものを作りたいと思っています。
-          </p>
+        <p className='bio'>
+          最近はフロントエンドを勉強中。<br />
+          プライベートではとにかく面白いものを,<br />
+          ビジネスでは誰かの役に立つものを作りたいと思っています。
+        </p>
 
-          <p className='bio'>
-            趣味は音楽鑑賞とレコーディングです。<br />
-            歌声を録音してソフトで編集するといった活動をしています。
-          </p>
-        </div>
-      </main>
+        <p className='bio'>
+          趣味は音楽鑑賞とレコーディングです。<br />
+          歌声を録音してソフトで編集するといった活動をしています。
+        </p>
+      </div>
     </>
   )
 }

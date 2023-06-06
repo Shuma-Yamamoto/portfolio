@@ -9,8 +9,8 @@ canvas {
   left: 0;
 }
 
-main {
-  margin: 25px 50px;
+.about-container {
+  margin: 20px 50px;
   color: white;
   font-family: "Droid Serif", serif;
 }

@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+main {
+  margin: 25px 50px;
+  color: white;
+  font-family: "Droid Serif", serif;
+}
+
+.about {
+  font-size: 80px;
+  font-weight: bold;
+}
+
+.name {
+  margin-bottom: 40px;
+  font-size: 40px;
+}
+
+.bio {
+  margin: 25px 0;
+  line-height: 1.75;
+  font-family: "游明朝体";
+  font-size: 20px;
+}

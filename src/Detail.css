@@ -1,0 +1,90 @@
+* {
+  z-index: 100;
+}
+
+.work-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.work-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: -1;
+}
+
+.work-content {
+  position: relative;
+  max-width: 875px;
+  width: 90%;
+  max-height: 90%;
+  overflow: hidden;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.work-close-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 8px 12px;
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.work-slides {
+  position: relative;
+  height: 0;
+  padding-bottom: 56.25%;
+  overflow: hidden;
+}
+
+.work-slides img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.work-slides img.active {
+  opacity: 1;
+}
+
+.work-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+
+.work-pagination span {
+  width: 12px;
+  height: 12px;
+  margin: 0 4px;
+  border-radius: 50%;
+  background-color: #ccc;
+  cursor: pointer;
+}
+
+.work-pagination span.active {
+  background-color: #333;
+}

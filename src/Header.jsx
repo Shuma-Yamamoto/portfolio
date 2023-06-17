@@ -1,12 +1,27 @@
 import './Header.css';
 
-function Header() {
+function Header({ currentPage, switchPage }) {
+  const switchTop = () => {
+    const newPage = 'Top';
+    switchPage(newPage)
+  };
+
+  const switchAbout = () => {
+    const newPage = 'About';
+    switchPage(newPage)
+  };
+
+  const switchWorks = () => {
+    const newPage = 'Works';
+    switchPage(newPage)
+  };
+
   return (
     <>
       <div className='header-container'>
-        <p className='header-item'>Top</p>
-        <p className='header-item'>About</p>
-        <p className='header-item'>Works</p>
+      <p className={`header-item ${currentPage === 'Top' ? 'active' : ''}`} onClick={switchTop}>Top</p>
+        <p className={`header-item ${currentPage === 'About' ? 'active' : ''}`} onClick={switchAbout}>About</p>
+        <p className={`header-item ${currentPage === 'Works' ? 'active' : ''}`} onClick={switchWorks}>Works</p>
       </div>
     </>
   )

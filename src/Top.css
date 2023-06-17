@@ -1,0 +1,10 @@
+.top-container {
+  margin: 20px 50px;
+  color: white;
+  font-family: "Droid Serif", serif;
+}
+
+.top {
+  font-size: 80px;
+  font-weight: bold;
+}

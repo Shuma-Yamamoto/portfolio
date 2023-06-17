@@ -25,15 +25,6 @@ function About() {
     );
     camera.position.set(0, 3, 3);
 
-    // camera control
-    let cursorX = 0;
-    let cursorY = 3;
-    window.addEventListener('mousemove', (event) => {
-      cursorX = event.clientX / sizes.width - 0.5;
-      cursorY = event.clientY / sizes.height + 2.5;
-      console.log(cursorY);
-    });
-
     // renderer
     const renderer = new THREE.WebGLRenderer({
         canvas: canvas,
@@ -42,10 +33,6 @@ function About() {
     });
     renderer.setSize(sizes.width, sizes.height);
     renderer.setPixelRatio(window.devicePixelRatio);
-
-    // grid
-    const gridHelper = new THREE.GridHelper(30, 30);
-    scene.add(gridHelper);
 
     // text
     let text;
@@ -66,31 +53,6 @@ function About() {
       scene.add(text);
     });
 
-    // particles
-    const particlesGeometry = new THREE.BufferGeometry();
-
-    const particlesCount = 1000;
-    const positionArray = new Float32Array(particlesCount * 3);
-    for (let i = 0; i < particlesCount * 3; i++) {
-      positionArray[i] = (Math.random() - 0.5) * 15;
-    }
-
-    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positionArray, 3));
-
-    const textureLoader = new THREE.TextureLoader();
-    const particlesTexture = textureLoader.load('http://localhost:5173/particles.png');
-
-    const particlesMaterial = new THREE.PointsMaterial({
-      size: 0.1,
-      color: '#ffffff',
-      transparent: true,
-      alphaMap: particlesTexture,
-      depthWrite: false,
-    });
-
-    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-    scene.add(particles);
-
     // animation
     const clock = new THREE.Clock();
 
@@ -102,10 +64,6 @@ function About() {
       if (text) {
         text.rotation.y += 0.5 * getDelta
       }
-
-      // camera control
-      camera.position.x = cursorX;
-      camera.position.y = cursorY;
 
       requestAnimationFrame(animate);
     };

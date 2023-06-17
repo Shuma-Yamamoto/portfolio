@@ -1,8 +1,58 @@
 import './Works.css';
-import { useEffect } from 'react';
+import Detail from './Detail';
+import { useRef, useState, useEffect } from 'react';
 import * as THREE from 'three';
 
 function Works() {
+  const workIndex = useRef(0);
+  const [workZero, setWorkZero] = useState(false);
+  const [workOne, setWorkOne] = useState(false);
+
+  // スライドの読み込み
+  const talkImageSlides = [
+    'http://localhost:5173/talk_image_slides/1.png',
+    'http://localhost:5173/talk_image_slides/2.png',
+    'http://localhost:5173/talk_image_slides/3.png',
+  ];
+
+  const utaTrainSlides = [
+    'http://localhost:5173/uta_train_slides/1.png',
+    'http://localhost:5173/uta_train_slides/2.png',
+    'http://localhost:5173/uta_train_slides/3.png',
+  ];
+
+  // クリックによるインデックスの更新
+  const clickArrowRight = () => {
+    if (workIndex.current === 5) {
+      workIndex.current = 0;
+    } else {
+      workIndex.current += 1;
+    }
+  };
+
+  const clickArrowLeft = () => {
+    if (workIndex.current === 0) {
+      workIndex.current = 5;
+    } else {
+      workIndex.current -= 1;
+    }
+  };
+
+  // スライドを表示する
+  const openModal = () => {
+    if (workIndex.current === 0) {
+      setWorkZero(true);
+    } else if (workIndex.current === 1) {
+      setWorkOne(true);
+    }
+  };
+
+  // スライドを非表示にする
+  const closeModal = () => {
+    setWorkZero(false);
+    setWorkOne(false);
+  };
+
   useEffect(() => {
     const canvas = document.getElementById('canvas');
 
@@ -33,10 +83,6 @@ function Works() {
     renderer.setSize(sizes.width, sizes.height);
     renderer.setPixelRatio(window.devicePixelRatio);
 
-    // grid
-    const gridHelper = new THREE.GridHelper(30, 30);
-    scene.add(gridHelper);
-
     // objects
     // 前面
     const textureLoader = new THREE.TextureLoader();
@@ -60,7 +106,7 @@ function Works() {
     const meshes = [mesh0, mesh1, mesh2, mesh3, mesh4, mesh5];
 
     meshes.forEach((mesh) => {
-      mesh.position.set(0, 3, 0);
+      mesh.position.set(0, 2.75, 0);
       scene.add(mesh);
     });
 
@@ -69,36 +115,22 @@ function Works() {
     let currentAngle = -4 * Math.PI; // 現在の回転角度
     let targetAngle = 0;             // 目標の回転角度
     let rotationSmoothness = 0.05;   // 回転の滑らかさ
-
-    const pixelToRadian = 0.00005;   // 変換係数
     const angleStep = Math.PI / 3;   // 一回の回転角度
-    const angleThreshold = 0.2;      // 回転角度の閾値
 
-    // スクロールによる回転
-    window.addEventListener('wheel', (event) => {
-      // スクロール量に応じた回転速度を設定
-      rotationSpeed += event.deltaY * pixelToRadian;
+    // クリックによる回転
+    const rotationRight = () => {
+      rotationSmoothness = 0.1;
+      targetAngle += angleStep;
+    };
+    const arrowRightElement = document.querySelector('.arrow-right');
+    arrowRightElement.addEventListener('click', rotationRight);
 
-      // 現在の回転角度と目標の回転角度の差分を計算
-      targetAngle = Math.round(currentAngle / angleStep) * angleStep;
-      const deltaRotationAngle = Math.abs(currentAngle - targetAngle);
-
-      // 差分が閾値を超えた場合は一回転する
-      if (deltaRotationAngle >= angleThreshold) {
-        rotationSmoothness = 0.03
-        targetAngle += Math.sign(event.deltaY) * angleStep;
-      }
-    });
-
-    // 方向キーによる回転
-    window.addEventListener('keydown', (event) => {
-      rotationSmoothness = 0.07
-      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
-        targetAngle += angleStep;
-      } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-        targetAngle -= angleStep;
-      }
-    });
+    const rotationLeft = () => {
+      rotationSmoothness = 0.1;
+      targetAngle -= angleStep;
+    };
+    const arrowLeftElement = document.querySelector('.arrow-left');
+    arrowLeftElement.addEventListener('click', rotationLeft);
 
     function rot() {
       // 回転角度の増加
@@ -112,7 +144,7 @@ function Works() {
 
       // オブジェクトの配置
       meshes.forEach((mesh, i) => {
-        mesh.lookAt(new THREE.Vector3(0, 3, 0));
+        mesh.lookAt(new THREE.Vector3(0, 2.75, 0));
         const radius = 7.5;
         const angle = currentAngle - (i * (Math.PI / 3)) + (Math.PI / 2);
         mesh.position.x = radius * Math.cos(-angle);
@@ -153,6 +185,19 @@ function Works() {
       <canvas id='canvas'></canvas>
       <div className='works-container'>
         <p className='works'>Works</p>
+      </div>
+      <div className='detail-container'>
+        <img src='http://localhost:5173/arrow.png' className='arrow-left' onClick={clickArrowLeft} />
+        <p className='detail' onClick={openModal}>detail</p>
+        <img src='http://localhost:5173/arrow.png' className='arrow-right' onClick={clickArrowRight} />
+      </div>
+      <div>
+        <div className={`fade-in ${workZero ? 'visible' : ''}`}>
+          <Detail workState={workZero} slides={talkImageSlides} closeModal={closeModal} />
+        </div>
+        <div className={`fade-in ${workOne ? 'visible' : ''}`}>
+          <Detail workState={workOne} slides={utaTrainSlides} closeModal={closeModal} />
+        </div>
       </div>
     </>
   )

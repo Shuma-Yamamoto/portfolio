@@ -8,6 +8,7 @@ canvas {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: -1;
 }
 
 .works-container {
@@ -19,4 +20,66 @@ canvas {
 .works {
   font-size: 80px;
   font-weight: bold;
+}
+
+.detail-container {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  bottom: 100px;
+  color: white;
+  font-family: "Droid Serif", serif;
+}
+
+.arrow-left {
+  transform: rotate(90deg);
+  width: 25px;
+  height: 25px;
+  margin-top: 5px;
+  margin-right: 25px;
+  cursor: pointer;
+}
+
+.arrow-right {
+  transform: rotate(270deg);
+  width: 25px;
+  height: 25px;
+  margin-top: 5px;
+  margin-left: 25px;
+  cursor: pointer;
+}
+
+.detail {
+  color: white;
+  font-family: "Droid Serif", serif;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.detail::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background-color: white;
+  transition: width 0.15s ease-in-out;
+}
+
+.detail:hover::before {
+  width: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
 }

@@ -4,5 +4,6 @@
 }
 
 body {
-  background-color: black;
+  background-image: url('http://localhost:5173/cosmos.jpg');
+  background-size: cover;
 }

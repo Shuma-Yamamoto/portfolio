@@ -84,6 +84,20 @@ function Works() {
     renderer.setPixelRatio(window.devicePixelRatio);
 
     // objects
+    // 地球
+    const earthTexture = new THREE.TextureLoader().load('http://localhost:5173/nasa.jpg');
+    const earthGeometry = new THREE.SphereGeometry( 16, 64, 32 );
+    const earthMaterial = new THREE.MeshPhysicalMaterial({ map: earthTexture });
+    const earth = new THREE.Mesh( earthGeometry, earthMaterial );
+    earth.position.set(0, -14.65, 0);
+    earth.rotation.set(-Math.PI/6, 2.75*Math.PI/4, Math.PI/4);
+    scene.add(earth);
+
+    // 平行光源
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(0, 1, 0);
+    scene.add(directionalLight);
+
     // 前面
     const textureLoader = new THREE.TextureLoader();
     const texture0 = textureLoader.load('http://localhost:5173/works/talk-image.png');
@@ -106,7 +120,7 @@ function Works() {
     const meshes = [mesh0, mesh1, mesh2, mesh3, mesh4, mesh5];
 
     meshes.forEach((mesh) => {
-      mesh.position.set(0, 2.75, 0);
+      mesh.position.set(0, 2.8, 0);
       scene.add(mesh);
     });
 
@@ -144,7 +158,7 @@ function Works() {
 
       // オブジェクトの配置
       meshes.forEach((mesh, i) => {
-        mesh.lookAt(new THREE.Vector3(0, 2.75, 0));
+        mesh.lookAt(new THREE.Vector3(0, 2.8, 0));
         const radius = 7.5;
         const angle = currentAngle - (i * (Math.PI / 3)) + (Math.PI / 2);
         mesh.position.x = radius * Math.cos(-angle);
@@ -157,8 +171,14 @@ function Works() {
     rot();
 
     // animation
+    const clock = new THREE.Clock();
+
     const animate = () => {
       renderer.render(scene, camera);
+
+      let getDelta = clock.getDelta();
+      earth.rotation.x += 0.1 * getDelta;
+
       requestAnimationFrame(animate);
     };
 
@@ -187,9 +207,9 @@ function Works() {
         <p className='works'>Works</p>
       </div>
       <div className='detail-container'>
-        <img src='http://localhost:5173/arrow.png' className='arrow-left' onClick={clickArrowLeft} />
+        <img src='http://localhost:5173/works/arrow.png' className='arrow-left' onClick={clickArrowLeft} />
         <p className='detail' onClick={openModal}>detail</p>
-        <img src='http://localhost:5173/arrow.png' className='arrow-right' onClick={clickArrowRight} />
+        <img src='http://localhost:5173/works/arrow.png' className='arrow-right' onClick={clickArrowRight} />
       </div>
       <div>
         <div className={`fade-in ${workZero ? 'visible' : ''}`}>

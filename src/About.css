@@ -32,3 +32,42 @@ canvas {
   font-family: "游明朝体";
   font-size: 20px;
 }
+
+.icon-container {
+  position: absolute;
+  left: 50px;
+  bottom: 50px;
+  display: flex;
+  flex-direction: row;
+}
+
+.twitter-container {
+  margin-right: 10px;
+}
+
+.twitter {
+  width: 45px;
+  height: 45px;
+}
+
+.github-container {
+  margin-left: 10px;
+}
+
+.github {
+  width: 45px;
+  height: 45px;
+}
+
+.skill-container {
+  position: absolute;
+  right: 50px;
+  bottom: 20px;
+  color: white;
+  font-family: "Droid Serif", serif;
+}
+
+.skill {
+  font-size: 80px;
+  font-weight: bold;
+}

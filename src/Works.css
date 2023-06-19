@@ -27,7 +27,7 @@ canvas {
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  top: 80px;
+  bottom: 75px;
   color: white;
   font-family: "Droid Serif", serif;
 }

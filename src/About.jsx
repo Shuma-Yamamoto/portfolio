@@ -21,7 +21,7 @@ function About() {
       sizes.height / 40,
       -sizes.height / 40,
       0.1,
-      100
+      100,
     );
     camera.position.set(0, 0, 0);
 
@@ -95,7 +95,7 @@ function About() {
       renderer.render(scene, camera);
 
       // カーソル制御
-      const target = new THREE.Vector3(-mouse.x, -mouse.y, 0);
+      const target = new THREE.Vector3(-mouse.x/2, -mouse.y/2, 0);
       target.unproject(camera);
       const direction = target.sub(camera.position).normalize();
 

@@ -1,3 +1,16 @@
+* {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
 .top-container {
   margin: 20px 50px;
   color: white;
@@ -7,4 +20,28 @@
 .top {
   font-size: 80px;
   font-weight: bold;
+}
+
+.text-container {
+  position: absolute;
+  top: 53%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Droid Serif", serif;
+}
+
+.text-animation .char {
+  opacity: 0;
+  transition: opacity 0.5s ease-in;
+}
+
+.text-animation .char.fade-in {
+  opacity: 0.75;
+}
+
+.char {
+  color: #00FF00;
+  font-size: 55px;
+  font-weight: bold;
+  line-height: 1.75;
 }

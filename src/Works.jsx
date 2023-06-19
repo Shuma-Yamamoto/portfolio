@@ -11,23 +11,23 @@ function Works() {
 
   // スライドの読み込み
   const talkImageSlides = [
-    'http://localhost:5173/talk_image_slides/1.png',
-    'http://localhost:5173/talk_image_slides/2.png',
-    'http://localhost:5173/talk_image_slides/3.png',
+    '/talk_image_slides/1.png',
+    '/talk_image_slides/2.png',
+    '/talk_image_slides/3.png',
   ];
 
   const utaTrainSlides = [
-    'http://localhost:5173/uta_train_slides/1.png',
-    'http://localhost:5173/uta_train_slides/2.png',
-    'http://localhost:5173/uta_train_slides/3.png',
+    '/uta_train_slides/1.png',
+    '/uta_train_slides/2.png',
+    '/uta_train_slides/3.png',
   ];
 
   const portfolioSiteSlides = [
-    'http://localhost:5173/portfolio_site_slides/1.png',
-    'http://localhost:5173/portfolio_site_slides/2.png',
-    'http://localhost:5173/portfolio_site_slides/3.png',
-    'http://localhost:5173/portfolio_site_slides/4.png',
-    'http://localhost:5173/portfolio_site_slides/5.png',
+    '/portfolio_site_slides/1.png',
+    '/portfolio_site_slides/2.png',
+    '/portfolio_site_slides/3.png',
+    '/portfolio_site_slides/4.png',
+    '/portfolio_site_slides/5.png',
   ];
 
   // クリックによるインデックスの更新
@@ -98,13 +98,13 @@ function Works() {
 
     // objects
     const textureLoader = new THREE.TextureLoader();
-    const texture0 = textureLoader.load('http://localhost:5173/works/talk-image.png');
+    const texture0 = textureLoader.load('/works/talk-image.png');
     const frontMaterial0 = new THREE.MeshBasicMaterial({ map: texture0 });
-    const texture1 = textureLoader.load('http://localhost:5173/works/uta-train.png');
+    const texture1 = textureLoader.load('/works/uta-train.png');
     const frontMaterial1 = new THREE.MeshBasicMaterial({ map: texture1 });
-    const texture2 = textureLoader.load('http://localhost:5173/works/portfolio-site.png');
+    const texture2 = textureLoader.load('/works/portfolio-site.png');
     const frontMaterial2 = new THREE.MeshBasicMaterial({ map: texture2 });
-    const texture3 = textureLoader.load('http://localhost:5173/works/coming-soon.png');
+    const texture3 = textureLoader.load('/works/coming-soon.png');
     const frontMaterial3 = new THREE.MeshBasicMaterial({ map: texture3 });
 
     const sideMaterial0 = new THREE.MeshBasicMaterial({ color: 0x06c755 });
@@ -131,12 +131,12 @@ function Works() {
     let rotationSpeed = 0;           // 回転速度 (radian/frame)
     let currentAngle = -4 * Math.PI; // 現在の回転角度
     let targetAngle = 0;             // 目標の回転角度
-    let rotationSmoothness = 0.025;   // 回転の滑らかさ
+    let rotationSmoothness = 0.05;   // 回転の滑らかさ
     const angleStep = Math.PI / 3;   // 一回の回転角度
 
     // クリックによる回転
     const rotationRight = () => {
-      rotationSmoothness = 0.05;
+      rotationSmoothness = 0.075;
       targetAngle += angleStep;
     };
     const arrowRightElement = document.querySelector('.arrow-right');
@@ -203,9 +203,9 @@ function Works() {
         <p className='works'>Works</p>
       </div>
       <div className='detail-container'>
-        <img src='http://localhost:5173/works/arrow.png' className='arrow-left' onClick={clickArrowLeft} />
+        <img src='/works/arrow.png' className='arrow-left' onClick={clickArrowLeft} />
         <p className='detail' onClick={openModal}>detail</p>
-        <img src='http://localhost:5173/works/arrow.png' className='arrow-right' onClick={clickArrowRight} />
+        <img src='/works/arrow.png' className='arrow-right' onClick={clickArrowRight} />
       </div>
       <div>
         <div className={`fade-in ${workZero ? 'visible' : ''}`}>

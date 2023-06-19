@@ -36,7 +36,7 @@ function About() {
 
     // objects
     // Python
-    const pythonTexture = new THREE.TextureLoader().load('http://localhost:5173/skill/python.png');
+    const pythonTexture = new THREE.TextureLoader().load('/skill/python.png');
     const pythonGeometry = new THREE.SphereGeometry( 4, 64, 32 );
     const pythonMaterial = new THREE.MeshPhysicalMaterial({ map: pythonTexture });
     const python = new THREE.Mesh( pythonGeometry, pythonMaterial );
@@ -44,7 +44,7 @@ function About() {
     scene.add(python);
 
     // Flask
-    const flaskTexture = new THREE.TextureLoader().load('http://localhost:5173/skill/flask.png');
+    const flaskTexture = new THREE.TextureLoader().load('/skill/flask.png');
     const flaskGeometry = new THREE.SphereGeometry( 4, 64, 32 );
     const flaskMaterial = new THREE.MeshPhysicalMaterial({ map: flaskTexture });
     const flask = new THREE.Mesh( flaskGeometry, flaskMaterial );
@@ -52,7 +52,7 @@ function About() {
     scene.add(flask);
 
     // Rails
-    const railsTexture = new THREE.TextureLoader().load('http://localhost:5173/skill/rails.png');
+    const railsTexture = new THREE.TextureLoader().load('/skill/rails.png');
     const railsGeometry = new THREE.SphereGeometry( 4, 64, 32 );
     const railsMaterial = new THREE.MeshPhysicalMaterial({ map: railsTexture });
     const rails = new THREE.Mesh( railsGeometry, railsMaterial );
@@ -60,7 +60,7 @@ function About() {
     scene.add(rails);
 
     // React
-    const reactTexture = new THREE.TextureLoader().load('http://localhost:5173/skill/react.png');
+    const reactTexture = new THREE.TextureLoader().load('/skill/react.png');
     const reactGeometry = new THREE.SphereGeometry( 4, 64, 32 );
     const reactMaterial = new THREE.MeshPhysicalMaterial({ map: reactTexture });
     const react = new THREE.Mesh( reactGeometry, reactMaterial );
@@ -68,7 +68,7 @@ function About() {
     scene.add(react);
 
     // AWS
-    const awsTexture = new THREE.TextureLoader().load('http://localhost:5173/skill/aws.png');
+    const awsTexture = new THREE.TextureLoader().load('/skill/aws.png');
     const awsGeometry = new THREE.SphereGeometry( 4, 64, 32 );
     const awsMaterial = new THREE.MeshPhysicalMaterial({ map: awsTexture });
     const aws = new THREE.Mesh( awsGeometry, awsMaterial );
@@ -155,13 +155,13 @@ function About() {
         <div className='icon-container'>
           <div className='twitter-container'>
             <a href='https://twitter.com/shumai_eng' target="_blank" rel="noopener noreferrer">
-              <img src='http://localhost:5173/contact/twitter.png' className='twitter' />
+              <img src='/contact/twitter.png' className='twitter' />
             </a>
           </div>
 
           <div className='github-container'>
             <a href='https://github.com/Shuma-Yamamoto' target="_blank" rel="noopener noreferrer">
-              <img src='http://localhost:5173/contact/github.png' className='github' />
+              <img src='/contact/github.png' className='github' />
             </a>
           </div>
         </div>

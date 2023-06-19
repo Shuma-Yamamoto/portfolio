@@ -52,7 +52,7 @@ function Top() {
     const displayWrap = new THREE.Object3D();
     scene.add(displayWrap);
 
-    displayLoader.load("http://localhost:5173/display/scene.gltf",(gltf)=>{
+    displayLoader.load("/display/scene.gltf",(gltf)=>{
       const display = gltf.scene;
 
       display.scale.set(3.2,3.2,3.2);

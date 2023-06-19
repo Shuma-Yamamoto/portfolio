@@ -4,6 +4,6 @@
 }
 
 body {
-  background-image: url('http://localhost:5173/cosmos.jpg');
+  background-image: url('/cosmos.jpg');
   background-size: cover;
 }

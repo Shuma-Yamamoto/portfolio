@@ -131,12 +131,12 @@ function Works() {
     let rotationSpeed = 0;           // 回転速度 (radian/frame)
     let currentAngle = -4 * Math.PI; // 現在の回転角度
     let targetAngle = 0;             // 目標の回転角度
-    let rotationSmoothness = 0.025;   // 回転の滑らかさ
+    let rotationSmoothness = 0.05;   // 回転の滑らかさ
     const angleStep = Math.PI / 3;   // 一回の回転角度
 
     // クリックによる回転
     const rotationRight = () => {
-      rotationSmoothness = 0.05;
+      rotationSmoothness = 0.075;
       targetAngle += angleStep;
     };
     const arrowRightElement = document.querySelector('.arrow-right');

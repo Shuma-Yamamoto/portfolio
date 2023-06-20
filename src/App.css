@@ -10,3 +10,45 @@
     opacity: 1;
   }
 }
+
+@media (max-width: 1200px) {
+  body::before {
+    content: "S.Yamamoto PortfolioSite.\AこのサイトはPC専用です。\A全画面表示で閲覧してください。";
+    white-space: pre;
+    line-height: 1.75;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #222222;
+    color: #fff;
+    font-size: 16px;
+    font-family: "游明朝体";
+    z-index: 9999;
+  }
+}
+
+@media (max-height: 700px) {
+  body::before {
+    content: "S.Yamamoto PortfolioSite.\AこのサイトはPC専用です。\A全画面表示で閲覧してください。";
+    white-space: pre;
+    line-height: 1.75;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #222222;
+    color: #fff;
+    font-size: 16px;
+    font-family: "游明朝体";
+    z-index: 9999;
+  }
+}

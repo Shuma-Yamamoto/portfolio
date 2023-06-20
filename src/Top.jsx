@@ -7,7 +7,7 @@ function Top() {
   useEffect(() => {
     const chars = document.querySelectorAll('.char');
 
-    let delay = 1000;
+    let delay = 1500;
 
     chars.forEach((char) => {
       setTimeout(() => {

@@ -31,7 +31,7 @@ body {
 
 @media (max-height: 700px) {
   body::before {
-    content: "S.Yamamoto PortfolioSite.\AこのサイトはPC専用です。\A全画面表示で閲覧してください。";
+    content: "S.Yamamoto PortfolioSite.\AThis website is for PC only.\APlease view in full screen.";
     white-space: pre;
     line-height: 1.75;
     position: fixed;

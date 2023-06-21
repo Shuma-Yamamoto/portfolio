@@ -23,7 +23,7 @@ body {
     justify-content: center;
     background-color: #222222;
     color: #fff;
-    font-size: clamp(18px, 5vw, 36px);
+    font-size: clamp(20px, 5vw, 36px);
     font-family: "游明朝体";
     z-index: 9999;
   }
@@ -44,7 +44,7 @@ body {
     justify-content: center;
     background-color: #222222;
     color: #fff;
-    font-size: clamp(18px, 5vw, 36px);
+    font-size: clamp(20px, 5vw, 36px);
     font-family: "游明朝体";
     z-index: 9999;
   }

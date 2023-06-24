@@ -16,63 +16,61 @@ function About() {
 
     // camera
     const camera = new THREE.OrthographicCamera(
-      -sizes.width / 40,
-      sizes.width / 40,
-      sizes.height / 40,
-      -sizes.height / 40,
-      0.1,
-      100,
+      -sizes.width / 160,
+      sizes.width / 160,
+      sizes.height / 160,
+      -sizes.height / 160,
+      0,
+      1,
     );
     camera.position.set(0, 0, 0);
 
     // renderer
     const renderer = new THREE.WebGLRenderer({
         canvas: canvas,
-        antialias: true,
+        antialias: false,
         alpha: true,
+        premultipliedAlpha: false,
     });
     renderer.setSize(sizes.width, sizes.height);
     renderer.setPixelRatio(window.devicePixelRatio);
 
     // objects
-    // Python
     const pythonTexture = new THREE.TextureLoader().load('/skill/python.png');
-    const pythonGeometry = new THREE.SphereGeometry( 4, 64, 32 );
-    const pythonMaterial = new THREE.MeshPhysicalMaterial({ map: pythonTexture });
-    const python = new THREE.Mesh( pythonGeometry, pythonMaterial );
-    python.position.set(2.5, 7, -25);
+    const flaskTexture = new THREE.TextureLoader().load('/skill/flask.png');
+    const railsTexture = new THREE.TextureLoader().load('/skill/rails.png');
+    const reactTexture = new THREE.TextureLoader().load('/skill/react.png');
+    const awsTexture = new THREE.TextureLoader().load('/skill/aws.png');
+    const sphereGeometry = new THREE.SphereGeometry( 1, 64, 32 );
+
+    // Python
+    const pythonMaterial = new THREE.MeshLambertMaterial({ map: pythonTexture });
+    const python = new THREE.Mesh( sphereGeometry, pythonMaterial );
+    python.position.set(0.625, 1.75, -1);
     scene.add(python);
 
     // Flask
-    const flaskTexture = new THREE.TextureLoader().load('/skill/flask.png');
-    const flaskGeometry = new THREE.SphereGeometry( 4, 64, 32 );
-    const flaskMaterial = new THREE.MeshPhysicalMaterial({ map: flaskTexture });
-    const flask = new THREE.Mesh( flaskGeometry, flaskMaterial );
-    flask.position.set(15, 7, -25);
+    const flaskMaterial = new THREE.MeshLambertMaterial({ map: flaskTexture });
+    const flask = new THREE.Mesh( sphereGeometry, flaskMaterial );
+    flask.position.set(3.75, 1.75, -1);
     scene.add(flask);
 
     // Rails
-    const railsTexture = new THREE.TextureLoader().load('/skill/rails.png');
-    const railsGeometry = new THREE.SphereGeometry( 4, 64, 32 );
-    const railsMaterial = new THREE.MeshPhysicalMaterial({ map: railsTexture });
-    const rails = new THREE.Mesh( railsGeometry, railsMaterial );
-    rails.position.set(2.5, -5.5, -25);
+    const railsMaterial = new THREE.MeshLambertMaterial({ map: railsTexture });
+    const rails = new THREE.Mesh( sphereGeometry, railsMaterial );
+    rails.position.set(0.625, -1.375, -1);
     scene.add(rails);
 
     // React
-    const reactTexture = new THREE.TextureLoader().load('/skill/react.png');
-    const reactGeometry = new THREE.SphereGeometry( 4, 64, 32 );
-    const reactMaterial = new THREE.MeshPhysicalMaterial({ map: reactTexture });
-    const react = new THREE.Mesh( reactGeometry, reactMaterial );
-    react.position.set(15, -5.5, -25);
+    const reactMaterial = new THREE.MeshLambertMaterial({ map: reactTexture });
+    const react = new THREE.Mesh( sphereGeometry, reactMaterial );
+    react.position.set(3.75, -1.375, -1);
     scene.add(react);
 
     // AWS
-    const awsTexture = new THREE.TextureLoader().load('/skill/aws.png');
-    const awsGeometry = new THREE.SphereGeometry( 4, 64, 32 );
-    const awsMaterial = new THREE.MeshPhysicalMaterial({ map: awsTexture });
-    const aws = new THREE.Mesh( awsGeometry, awsMaterial );
-    aws.position.set(27.5, -5.5, -25);
+    const awsMaterial = new THREE.MeshLambertMaterial({ map: awsTexture });
+    const aws = new THREE.Mesh( sphereGeometry, awsMaterial );
+    aws.position.set(6.875, -1.375, -1);
     scene.add(aws);
 
     // カーソル制御
@@ -91,11 +89,19 @@ function About() {
     scene.add(directionalLight);
 
     // animation
+    let frame;
+
     const animate = () => {
+      // FPSを30に下げる
+      frame++;
+      if (frame % 2 == 0) {
+        return;
+      }
+
       renderer.render(scene, camera);
 
       // カーソル制御
-      const target = new THREE.Vector3(-mouse.x/2, -mouse.y/2, 0);
+      const target = new THREE.Vector3(-mouse.x / 60, -mouse.y / 60, 0);
       target.unproject(camera);
       const direction = target.sub(camera.position).normalize();
 

@@ -30,17 +30,17 @@ function Top() {
 
     // camera
     const camera = new THREE.PerspectiveCamera(
-      75,
+      70,
       sizes.width / sizes.height,
-      0.1,
-      100,
+      0.5,
+      1.5,
     );
     camera.position.set(0, 0, 0);
 
     // renderer
     const renderer = new THREE.WebGLRenderer({
         canvas: canvas,
-        antialias: true,
+        antialias: false,
         alpha: true,
         premultipliedAlpha: false,
     });
@@ -55,8 +55,8 @@ function Top() {
     displayLoader.load("/display/scene.gltf",(gltf)=>{
       const display = gltf.scene;
 
-      display.scale.set(3.2,3.2,3.2);
-      display.position.set(0,-0.59,-1);
+      display.scale.set(3, 3, 3);
+      display.position.set(0,-0.55,-1);
 
       displayWrap.add(display);
 
@@ -66,11 +66,19 @@ function Top() {
 
     // 平行光源
     const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
-    directionalLight.position.set(0.45, 0.45, 1);
+    directionalLight.position.set(0.425, 0.425, 1);
     scene.add(directionalLight);
 
     // animation
+    let frame;
+
     const animate = () => {
+      // FPSを30に下げる
+      frame++;
+      if (frame % 2 == 0) {
+        return;
+      }
+
       renderer.render(scene, camera);
       requestAnimationFrame(animate);
     };

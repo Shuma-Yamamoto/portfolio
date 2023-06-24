@@ -49,14 +49,21 @@ function Works() {
 
   // スライドを表示する
   const openModal = () => {
-    if (workIndex.current === 0) {
+  switch (workIndex.current) {
+    case 0:
       setWorkZero(true);
-    } else if (workIndex.current === 1) {
+      break;
+    case 1:
       setWorkOne(true);
-    } else if (workIndex.current === 2) {
+      break;
+    case 2:
       setWorkTwo(true);
+      break;
+    default:
+      break;
     }
   };
+
 
   // スライドを非表示にする
   const closeModal = () => {
@@ -80,16 +87,16 @@ function Works() {
     const camera = new THREE.PerspectiveCamera(
       75,
       sizes.width / sizes.height,
-      0.1,
-      100,
+      3,
+      30,
     );
     camera.rotation.z = -Math.PI / 18;
-    camera.position.set(0, 3, 15);
+    camera.position.set(0, 0, 15);
 
     // renderer
     const renderer = new THREE.WebGLRenderer({
         canvas: canvas,
-        antialias: true,
+        antialias: false,
         alpha: true,
         premultipliedAlpha: false,
     });
@@ -107,22 +114,23 @@ function Works() {
     const texture3 = textureLoader.load('/works/coming-soon.png');
     const frontMaterial3 = new THREE.MeshBasicMaterial({ map: texture3 });
 
+    const boxGeometry = new THREE.BoxGeometry(3, 3, 0.25);
     const sideMaterial0 = new THREE.MeshBasicMaterial({ color: 0x06c755 });
     const sideMaterial1 = new THREE.MeshBasicMaterial({ color: 0x187fc4 });
     const sideMaterial2 = new THREE.MeshBasicMaterial({ color: 0x333333 });
     const commonMaterial = new THREE.MeshBasicMaterial({ color: 0xdddddd });
 
-    const mesh0 = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 0.25), [sideMaterial0, sideMaterial0, sideMaterial0, sideMaterial0, frontMaterial0, sideMaterial0]);
-    const mesh1 = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 0.25), [sideMaterial1, sideMaterial1, sideMaterial1, sideMaterial1, frontMaterial1, sideMaterial1]);
-    const mesh2 = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 0.25), [sideMaterial2, sideMaterial2, sideMaterial2, sideMaterial2, frontMaterial2, sideMaterial2]);
-    const mesh3 = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 0.25), [commonMaterial, commonMaterial, commonMaterial, commonMaterial, frontMaterial3, commonMaterial]);
-    const mesh4 = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 0.25), [commonMaterial, commonMaterial, commonMaterial, commonMaterial, frontMaterial3, commonMaterial]);
-    const mesh5 = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 0.25), [commonMaterial, commonMaterial, commonMaterial, commonMaterial, frontMaterial3, commonMaterial]);
+    const mesh0 = new THREE.Mesh(boxGeometry, [sideMaterial0, sideMaterial0, sideMaterial0, sideMaterial0, frontMaterial0, sideMaterial0]);
+    const mesh1 = new THREE.Mesh(boxGeometry, [sideMaterial1, sideMaterial1, sideMaterial1, sideMaterial1, frontMaterial1, sideMaterial1]);
+    const mesh2 = new THREE.Mesh(boxGeometry, [sideMaterial2, sideMaterial2, sideMaterial2, sideMaterial2, frontMaterial2, sideMaterial2]);
+    const mesh3 = new THREE.Mesh(boxGeometry, [commonMaterial, commonMaterial, commonMaterial, commonMaterial, frontMaterial3, commonMaterial]);
+    const mesh4 = new THREE.Mesh(boxGeometry, [commonMaterial, commonMaterial, commonMaterial, commonMaterial, frontMaterial3, commonMaterial]);
+    const mesh5 = new THREE.Mesh(boxGeometry, [commonMaterial, commonMaterial, commonMaterial, commonMaterial, frontMaterial3, commonMaterial]);
 
     const meshes = [mesh0, mesh1, mesh2, mesh3, mesh4, mesh5];
 
     meshes.forEach((mesh) => {
-      mesh.position.set(0, 3, 0);
+      mesh.position.set(0, 0, 0);
       mesh.rotation.set(0, 0, -Math.PI / 18);
       scene.add(mesh);
     });
@@ -131,19 +139,19 @@ function Works() {
     let rotationSpeed = 0;           // 回転速度 (radian/frame)
     let currentAngle = -4 * Math.PI; // 現在の回転角度
     let targetAngle = 0;             // 目標の回転角度
-    let rotationSmoothness = 0.05;   // 回転の滑らかさ
+    let rotationSmoothness = 0.045;  // 回転の滑らかさ
     const angleStep = Math.PI / 3;   // 一回の回転角度
 
     // クリックによる回転
     const rotationRight = () => {
-      rotationSmoothness = 0.075;
+      rotationSmoothness = 0.07;
       targetAngle += angleStep;
     };
     const arrowRightElement = document.querySelector('.arrow-right');
     arrowRightElement.addEventListener('click', rotationRight);
 
     const rotationLeft = () => {
-      rotationSmoothness = 0.05;
+      rotationSmoothness = 0.07;
       targetAngle -= angleStep;
     };
     const arrowLeftElement = document.querySelector('.arrow-left');
@@ -173,7 +181,14 @@ function Works() {
     rot();
 
     // animation
+    let frame;
     const animate = () => {
+      // FPSを30に下げる
+      frame++;
+      if (frame % 2 == 0) {
+        return;
+      }
+
       renderer.render(scene, camera);
       requestAnimationFrame(animate);
     };

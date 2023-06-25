@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './Detail.css';
 
-const Detail = ({ workState, slides, closeModal }) => {
+const Detail = ({ workState, workIndex, slides, closeModal }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = () => {
@@ -47,11 +47,17 @@ const Detail = ({ workState, slides, closeModal }) => {
         <button className="work-close-button" onClick={closeModal}>×</button>
         <div className="work-slides">
           {slides.map((slide, index) => (
-            <img
+            <a
               key={index}
-              src={slide}
-              className={index === currentSlide ? 'active' : ''}
-            />
+              href={workIndex === 1 && currentSlide === 2 ? 'https://play.google.com/store/apps/details?id=com.shuma_yamamoto.utatrain' : undefined}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src={slide}
+                className={index === currentSlide ? 'active' : ''}
+              />
+            </a>
           ))}
         </div>
         <div className="work-pagination">

@@ -224,13 +224,13 @@ function Works() {
       </div>
       <div>
         <div className={`fade-in ${workZero ? 'visible' : ''}`}>
-          <Detail workState={workZero} slides={talkImageSlides} closeModal={closeModal} />
+          <Detail workState={workZero} workIndex={workIndex.current} slides={talkImageSlides} closeModal={closeModal} />
         </div>
         <div className={`fade-in ${workOne ? 'visible' : ''}`}>
-          <Detail workState={workOne} slides={utaTrainSlides} closeModal={closeModal} />
+          <Detail workState={workOne} workIndex={workIndex.current} slides={utaTrainSlides} closeModal={closeModal} />
         </div>
         <div className={`fade-in ${workTwo ? 'visible' : ''}`}>
-          <Detail workState={workTwo} slides={portfolioSiteSlides} closeModal={closeModal} />
+          <Detail workState={workTwo} workIndex={workIndex.current} slides={portfolioSiteSlides} closeModal={closeModal} />
         </div>
       </div>
     </>

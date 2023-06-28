@@ -19,7 +19,7 @@ function Header({ currentPage, switchPage }) {
   return (
     <>
       <div className='header-container'>
-      <p className={`header-item ${currentPage === 'Top' ? 'active' : ''}`} onClick={switchTop}>Top</p>
+        <p className={`header-item ${currentPage === 'Top' ? 'active' : ''}`} onClick={switchTop}>Top</p>
         <p className={`header-item ${currentPage === 'About' ? 'active' : ''}`} onClick={switchAbout}>About</p>
         <p className={`header-item ${currentPage === 'Works' ? 'active' : ''}`} onClick={switchWorks}>Works</p>
       </div>

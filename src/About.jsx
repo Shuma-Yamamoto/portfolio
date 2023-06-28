@@ -36,102 +36,120 @@ function About() {
     renderer.setPixelRatio(window.devicePixelRatio);
 
     // objects
-    const pythonTexture = new THREE.TextureLoader().load('/skill/python.png');
-    const flaskTexture = new THREE.TextureLoader().load('/skill/flask.png');
-    const railsTexture = new THREE.TextureLoader().load('/skill/rails.png');
-    const reactTexture = new THREE.TextureLoader().load('/skill/react.png');
-    const awsTexture = new THREE.TextureLoader().load('/skill/aws.png');
-    const sphereGeometry = new THREE.SphereGeometry( 1, 64, 32 );
+    async function loadTextures() {
+      const textureLoader = new THREE.TextureLoader();
 
-    // Python
-    const pythonMaterial = new THREE.MeshLambertMaterial({ map: pythonTexture });
-    const python = new THREE.Mesh( sphereGeometry, pythonMaterial );
-    python.position.set(0.625, 1.75, -1);
-    scene.add(python);
+      const pythonTexture = await textureLoader.loadAsync('/skill/python.png');
+      const flaskTexture = await textureLoader.loadAsync('/skill/flask.png');
+      const railsTexture = await textureLoader.loadAsync('/skill/rails.png');
+      const reactTexture = await textureLoader.loadAsync('/skill/react.png');
+      const awsTexture = await textureLoader.loadAsync('/skill/aws.png');
 
-    // Flask
-    const flaskMaterial = new THREE.MeshLambertMaterial({ map: flaskTexture });
-    const flask = new THREE.Mesh( sphereGeometry, flaskMaterial );
-    flask.position.set(3.75, 1.75, -1);
-    scene.add(flask);
-
-    // Rails
-    const railsMaterial = new THREE.MeshLambertMaterial({ map: railsTexture });
-    const rails = new THREE.Mesh( sphereGeometry, railsMaterial );
-    rails.position.set(0.625, -1.375, -1);
-    scene.add(rails);
-
-    // React
-    const reactMaterial = new THREE.MeshLambertMaterial({ map: reactTexture });
-    const react = new THREE.Mesh( sphereGeometry, reactMaterial );
-    react.position.set(3.75, -1.375, -1);
-    scene.add(react);
-
-    // AWS
-    const awsMaterial = new THREE.MeshLambertMaterial({ map: awsTexture });
-    const aws = new THREE.Mesh( sphereGeometry, awsMaterial );
-    aws.position.set(6.875, -1.375, -1);
-    scene.add(aws);
-
-    // カーソル制御
-    const mouse = new THREE.Vector2();
-
-    function updateMouse(event) {
-      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      return {
+        pythonTexture,
+        flaskTexture,
+        railsTexture,
+        reactTexture,
+        awsTexture,
+      };
     }
 
-    window.addEventListener('mousemove', updateMouse);
+    loadTextures().then((textures) => {
+      const { pythonTexture, flaskTexture, railsTexture, reactTexture, awsTexture } = textures;
 
-    // 平行光源
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(0.25, 0.5, 1);
-    scene.add(directionalLight);
+      const sphereGeometry = new THREE.SphereGeometry(1, 64, 32);
+      const scene = new THREE.Scene();
 
-    // animation
-    let frame;
+      // Python
+      const pythonMaterial = new THREE.MeshLambertMaterial({ map: pythonTexture });
+      const python = new THREE.Mesh(sphereGeometry, pythonMaterial);
+      python.position.set(0.625, 1.75, -1);
+      scene.add(python);
 
-    const animate = () => {
-      // FPSを30に下げる
-      frame++;
-      if (frame % 2 == 0) {
-        return;
-      }
+      // Flask
+      const flaskMaterial = new THREE.MeshLambertMaterial({ map: flaskTexture });
+      const flask = new THREE.Mesh(sphereGeometry, flaskMaterial);
+      flask.position.set(3.75, 1.75, -1);
+      scene.add(flask);
 
-      renderer.render(scene, camera);
+      // Rails
+      const railsMaterial = new THREE.MeshLambertMaterial({ map: railsTexture });
+      const rails = new THREE.Mesh(sphereGeometry, railsMaterial);
+      rails.position.set(0.625, -1.375, -1);
+      scene.add(rails);
+
+      // React
+      const reactMaterial = new THREE.MeshLambertMaterial({ map: reactTexture });
+      const react = new THREE.Mesh(sphereGeometry, reactMaterial);
+      react.position.set(3.75, -1.375, -1);
+      scene.add(react);
+
+      // AWS
+      const awsMaterial = new THREE.MeshLambertMaterial({ map: awsTexture });
+      const aws = new THREE.Mesh(sphereGeometry, awsMaterial);
+      aws.position.set(6.875, -1.375, -1);
+      scene.add(aws);
 
       // カーソル制御
-      const target = new THREE.Vector3(-mouse.x / 60, -mouse.y / 60, 0);
-      target.unproject(camera);
-      const direction = target.sub(camera.position).normalize();
+      const mouse = new THREE.Vector2();
 
-      python.lookAt(python.position.clone().add(direction));
-      flask.lookAt(flask.position.clone().add(direction));
-      rails.lookAt(rails.position.clone().add(direction));
-      react.lookAt(react.position.clone().add(direction));
-      aws.lookAt(aws.position.clone().add(direction));
+      function updateMouse(event) {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      }
 
-      requestAnimationFrame(animate);
-    };
+      window.addEventListener('mousemove', updateMouse);
 
-    animate();
+      // 平行光源
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+      directionalLight.position.set(0.25, 0.5, 1);
+      scene.add(directionalLight);
 
-    // resize
-    window.addEventListener('resize', () => {
-      // size update
-      sizes.width = window.innerWidth;
-      sizes.height = window.innerHeight;
+      // animation
+      let frame;
 
-      // camera update
-      camera.left = -sizes.width / 160;
-      camera.right = sizes.width / 160;
-      camera.top = sizes.height / 160;
-      camera.bottom = -sizes.height / 160;
-      camera.updateProjectionMatrix();
+      const animate = () => {
+        // FPSを30に下げる
+        frame++;
+        if (frame % 2 == 0) {
+          return;
+        }
 
-      // renderer update
-      renderer.setSize(sizes.width, sizes.height);
-      renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.render(scene, camera);
+
+        // カーソル制御
+        const target = new THREE.Vector3(-mouse.x / 60, -mouse.y / 60, 0);
+        target.unproject(camera);
+        const direction = target.sub(camera.position).normalize();
+
+        python.lookAt(python.position.clone().add(direction));
+        flask.lookAt(flask.position.clone().add(direction));
+        rails.lookAt(rails.position.clone().add(direction));
+        react.lookAt(react.position.clone().add(direction));
+        aws.lookAt(aws.position.clone().add(direction));
+
+        requestAnimationFrame(animate);
+      };
+
+      animate();
+
+      // resize
+      window.addEventListener('resize', () => {
+        // size update
+        sizes.width = window.innerWidth;
+        sizes.height = window.innerHeight;
+
+        // camera update
+        camera.left = -sizes.width / 160;
+        camera.right = sizes.width / 160;
+        camera.top = sizes.height / 160;
+        camera.bottom = -sizes.height / 160;
+        camera.updateProjectionMatrix();
+
+        // renderer update
+        renderer.setSize(sizes.width, sizes.height);
+        renderer.setPixelRatio(window.devicePixelRatio);
+      });
     });
   }, []);
 

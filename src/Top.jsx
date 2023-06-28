@@ -5,19 +5,6 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 function Top() {
   useEffect(() => {
-    const chars = document.querySelectorAll('.char');
-
-    let delay = 1500;
-
-    chars.forEach((char) => {
-      setTimeout(() => {
-        char.classList.add('fade-in');
-      }, delay);
-      delay += 150;
-    });
-  }, []);
-
-  useEffect(() => {
     const canvas = document.getElementById('canvas');
 
     const sizes = {
@@ -32,15 +19,15 @@ function Top() {
     const camera = new THREE.PerspectiveCamera(
       70,
       sizes.width / sizes.height,
-      0.5,
-      1.5,
+      30,
+      70,
     );
-    camera.position.set(0, 0, 0);
+    camera.position.set(0, 0, 50);
 
     // renderer
     const renderer = new THREE.WebGLRenderer({
         canvas: canvas,
-        antialias: false,
+        antialias: true,
         alpha: true,
         premultipliedAlpha: false,
     });
@@ -48,25 +35,25 @@ function Top() {
     renderer.setPixelRatio(window.devicePixelRatio);
 
     // object
-    const displayLoader = new GLTFLoader();
-    const displayWrap = new THREE.Object3D();
-    scene.add(displayWrap);
+    const cubeLoader = new GLTFLoader();
+    const cubeWrap = new THREE.Object3D();
+    scene.add(cubeWrap);
 
-    displayLoader.load("/display/scene.gltf",(gltf)=>{
-      const display = gltf.scene;
+    cubeLoader.load("/cube/scene.gltf",(gltf)=>{
+      const cube = gltf.scene;
 
-      display.scale.set(3, 3, 3);
-      display.position.set(0,-0.55,-1);
+      cube.scale.set(0.1, 0.1, 0.1);
+      cube.position.set(0,-17,0);
 
-      displayWrap.add(display);
+      cubeWrap.add(cube);
 
     }, undefined, function ( error ) {
       console.error( error );
     });
 
     // 平行光源
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
-    directionalLight.position.set(0.425, 0.425, 1);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.25);
+    directionalLight.position.set(0, 0, 1);
     scene.add(directionalLight);
 
     // animation
@@ -78,6 +65,8 @@ function Top() {
       if (frame % 2 == 0) {
         return;
       }
+
+      cubeWrap.rotation.y -= 0.01
 
       renderer.render(scene, camera);
       requestAnimationFrame(animate);
@@ -106,43 +95,6 @@ function Top() {
       <canvas id='canvas'></canvas>
       <div className='top-container'>
         <p className='top'>S.Yamamoto</p>
-      </div>
-      <div className='text-container'>
-        <div className="text-animation">
-          <span className="char">H</span>
-          <span className="char">e</span>
-          <span className="char">l</span>
-          <span className="char">l</span>
-          <span className="char">o</span>
-          <span className="char">,</span>
-          <span className="char"> </span>
-          <span className="char">W</span>
-          <span className="char">o</span>
-          <span className="char">r</span>
-          <span className="char">l</span>
-          <span className="char">d</span>
-          <span className="char">.</span>
-          <br />
-          <span className="char">I</span>
-          <span className="char">'</span>
-          <span className="char">m</span>
-          <span className="char"> </span>
-          <span className="char">a</span>
-          <span className="char"> </span>
-          <span className="char">w</span>
-          <span className="char">e</span>
-          <span className="char">b</span>
-          <span className="char"> </span>
-          <span className="char">e</span>
-          <span className="char">n</span>
-          <span className="char">g</span>
-          <span className="char">i</span>
-          <span className="char">n</span>
-          <span className="char">e</span>
-          <span className="char">e</span>
-          <span className="char">r</span>
-          <span className="char">.</span>
-        </div>
       </div>
     </>
   )

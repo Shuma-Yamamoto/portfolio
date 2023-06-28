@@ -123,10 +123,10 @@ function About() {
       sizes.height = window.innerHeight;
 
       // camera update
-      camera.left = -sizes.width / 40;
-      camera.right = sizes.width / 40;
-      camera.top = sizes.height / 40;
-      camera.bottom = -sizes.height / 40;
+      camera.left = -sizes.width / 160;
+      camera.right = sizes.width / 160;
+      camera.top = sizes.height / 160;
+      camera.bottom = -sizes.height / 160;
       camera.updateProjectionMatrix();
 
       // renderer update

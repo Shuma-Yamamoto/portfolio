@@ -66,7 +66,7 @@ function Top() {
         return;
       }
 
-      cubeWrap.rotation.y -= 0.01
+      cubeWrap.rotation.y -= 0.01;
 
       renderer.render(scene, camera);
       requestAnimationFrame(animate);

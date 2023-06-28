@@ -104,110 +104,125 @@ function Works() {
     renderer.setPixelRatio(window.devicePixelRatio);
 
     // objects
-    const textureLoader = new THREE.TextureLoader();
-    const texture0 = textureLoader.load('/works/talk-image.png');
-    const frontMaterial0 = new THREE.MeshBasicMaterial({ map: texture0 });
-    const texture1 = textureLoader.load('/works/uta-train.png');
-    const frontMaterial1 = new THREE.MeshBasicMaterial({ map: texture1 });
-    const texture2 = textureLoader.load('/works/portfolio-site.png');
-    const frontMaterial2 = new THREE.MeshBasicMaterial({ map: texture2 });
-    const texture3 = textureLoader.load('/works/coming-soon.png');
-    const frontMaterial3 = new THREE.MeshBasicMaterial({ map: texture3 });
+    async function loadTextures() {
+      const textureLoader = new THREE.TextureLoader();
 
-    const boxGeometry = new THREE.BoxGeometry(3, 3, 0.25);
-    const sideMaterial0 = new THREE.MeshBasicMaterial({ color: 0x06c755 });
-    const sideMaterial1 = new THREE.MeshBasicMaterial({ color: 0x187fc4 });
-    const sideMaterial2 = new THREE.MeshBasicMaterial({ color: 0x333333 });
-    const commonMaterial = new THREE.MeshBasicMaterial({ color: 0xdddddd });
+      const texture0 = await textureLoader.loadAsync('/works/talk-image.png');
+      const texture1 = await textureLoader.loadAsync('/works/uta-train.png');
+      const texture2 = await textureLoader.loadAsync('/works/portfolio-site.png');
+      const texture3 = await textureLoader.loadAsync('/works/coming-soon.png');
 
-    const mesh0 = new THREE.Mesh(boxGeometry, [sideMaterial0, sideMaterial0, sideMaterial0, sideMaterial0, frontMaterial0, sideMaterial0]);
-    const mesh1 = new THREE.Mesh(boxGeometry, [sideMaterial1, sideMaterial1, sideMaterial1, sideMaterial1, frontMaterial1, sideMaterial1]);
-    const mesh2 = new THREE.Mesh(boxGeometry, [sideMaterial2, sideMaterial2, sideMaterial2, sideMaterial2, frontMaterial2, sideMaterial2]);
-    const mesh3 = new THREE.Mesh(boxGeometry, [commonMaterial, commonMaterial, commonMaterial, commonMaterial, frontMaterial3, commonMaterial]);
-    const mesh4 = new THREE.Mesh(boxGeometry, [commonMaterial, commonMaterial, commonMaterial, commonMaterial, frontMaterial3, commonMaterial]);
-    const mesh5 = new THREE.Mesh(boxGeometry, [commonMaterial, commonMaterial, commonMaterial, commonMaterial, frontMaterial3, commonMaterial]);
-
-    const meshes = [mesh0, mesh1, mesh2, mesh3, mesh4, mesh5];
-
-    meshes.forEach((mesh) => {
-      mesh.position.set(0, 0, 0);
-      mesh.rotation.set(0, 0, -Math.PI / 18);
-      scene.add(mesh);
-    });
-
-    // オブジェクトの回転
-    let rotationSpeed = 0;           // 回転速度 (radian/frame)
-    let currentAngle = -4 * Math.PI; // 現在の回転角度
-    let targetAngle = 0;             // 目標の回転角度
-    let rotationSmoothness = 0.045;  // 回転の滑らかさ
-    const angleStep = Math.PI / 3;   // 一回の回転角度
-
-    // クリックによる回転
-    const rotationRight = () => {
-      rotationSmoothness = 0.07;
-      targetAngle += angleStep;
-    };
-    const arrowRightElement = document.querySelector('.arrow-right');
-    arrowRightElement.addEventListener('click', rotationRight);
-
-    const rotationLeft = () => {
-      rotationSmoothness = 0.07;
-      targetAngle -= angleStep;
-    };
-    const arrowLeftElement = document.querySelector('.arrow-left');
-    arrowLeftElement.addEventListener('click', rotationLeft);
-
-    function rot() {
-      // 回転角度の増加
-      currentAngle += rotationSpeed;
-
-      // 回転速度の減少
-      rotationSpeed *= 0.75;
-
-      // 回転を滑らかにする線形補間
-      currentAngle = THREE.MathUtils.lerp(currentAngle, targetAngle, rotationSmoothness);
-
-      // オブジェクトの配置
-      meshes.forEach((mesh, i) => {
-        const radius = 10;
-        const angle = currentAngle - (i * (Math.PI / 3)) + (Math.PI / 2);
-        mesh.position.x = radius * Math.cos(angle);
-        mesh.position.z = radius * Math.sin(angle);
-      });
-
-      window.requestAnimationFrame(rot);
+      return {
+        texture0,
+        texture1,
+        texture2,
+        texture3,
+      };
     }
 
-    rot();
+    loadTextures().then((textures) => {
+      const { texture0, texture1, texture2, texture3 } = textures;
 
-    // animation
-    let frame;
-    const animate = () => {
-      // FPSを30に下げる
-      frame++;
-      if (frame % 2 == 0) {
-        return;
+      const boxGeometry = new THREE.BoxGeometry(3, 3, 0.25);
+      const sideMaterial0 = new THREE.MeshBasicMaterial({ color: 0x06c755 });
+      const sideMaterial1 = new THREE.MeshBasicMaterial({ color: 0x187fc4 });
+      const sideMaterial2 = new THREE.MeshBasicMaterial({ color: 0x333333 });
+      const commonMaterial = new THREE.MeshBasicMaterial({ color: 0xdddddd });
+
+      const frontMaterial0 = new THREE.MeshBasicMaterial({ map: texture0 });
+      const frontMaterial1 = new THREE.MeshBasicMaterial({ map: texture1 });
+      const frontMaterial2 = new THREE.MeshBasicMaterial({ map: texture2 });
+      const frontMaterial3 = new THREE.MeshBasicMaterial({ map: texture3 });
+
+      const mesh0 = new THREE.Mesh(boxGeometry, [sideMaterial0, sideMaterial0, sideMaterial0, sideMaterial0, frontMaterial0, sideMaterial0]);
+      const mesh1 = new THREE.Mesh(boxGeometry, [sideMaterial1, sideMaterial1, sideMaterial1, sideMaterial1, frontMaterial1, sideMaterial1]);
+      const mesh2 = new THREE.Mesh(boxGeometry, [sideMaterial2, sideMaterial2, sideMaterial2, sideMaterial2, frontMaterial2, sideMaterial2]);
+      const mesh3 = new THREE.Mesh(boxGeometry, [commonMaterial, commonMaterial, commonMaterial, commonMaterial, frontMaterial3, commonMaterial]);
+      const mesh4 = new THREE.Mesh(boxGeometry, [commonMaterial, commonMaterial, commonMaterial, commonMaterial, frontMaterial3, commonMaterial]);
+      const mesh5 = new THREE.Mesh(boxGeometry, [commonMaterial, commonMaterial, commonMaterial, commonMaterial, frontMaterial3, commonMaterial]);
+
+      const meshes = [mesh0, mesh1, mesh2, mesh3, mesh4, mesh5];
+
+      meshes.forEach((mesh) => {
+        mesh.position.set(0, 0, 0);
+        mesh.rotation.set(0, 0, -Math.PI / 18);
+        scene.add(mesh);
+      });
+
+      // オブジェクトの回転
+      let rotationSpeed = 0;           // 回転速度 (radian/frame)
+      let currentAngle = -4 * Math.PI; // 現在の回転角度
+      let targetAngle = 0;             // 目標の回転角度
+      let rotationSmoothness = 0.045;  // 回転の滑らかさ
+      const angleStep = Math.PI / 3;   // 一回の回転角度
+
+      // クリックによる回転
+      const rotationRight = () => {
+        rotationSmoothness = 0.07;
+        targetAngle += angleStep;
+      };
+      const arrowRightElement = document.querySelector('.arrow-right');
+      arrowRightElement.addEventListener('click', rotationRight);
+
+      const rotationLeft = () => {
+        rotationSmoothness = 0.07;
+        targetAngle -= angleStep;
+      };
+      const arrowLeftElement = document.querySelector('.arrow-left');
+      arrowLeftElement.addEventListener('click', rotationLeft);
+
+      function rot() {
+        // 回転角度の増加
+        currentAngle += rotationSpeed;
+
+        // 回転速度の減少
+        rotationSpeed *= 0.75;
+
+        // 回転を滑らかにする線形補間
+        currentAngle = THREE.MathUtils.lerp(currentAngle, targetAngle, rotationSmoothness);
+
+        // オブジェクトの配置
+        meshes.forEach((mesh, i) => {
+          const radius = 10;
+          const angle = currentAngle - (i * (Math.PI / 3)) + (Math.PI / 2);
+          mesh.position.x = radius * Math.cos(angle);
+          mesh.position.z = radius * Math.sin(angle);
+        });
+
+        window.requestAnimationFrame(rot);
       }
 
-      renderer.render(scene, camera);
-      requestAnimationFrame(animate);
-    };
+      rot();
 
-    animate();
+      // animation
+      let frame;
+      const animate = () => {
+        // FPSを30に下げる
+        frame++;
+        if (frame % 2 == 0) {
+          return;
+        }
 
-    // resize
-    window.addEventListener('resize', () => {
-      // size update
-      sizes.width = window.innerWidth;
-      sizes.height = window.innerHeight;
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+      };
 
-      // camera update
-      camera.aspect = sizes.width / sizes.height;
-      camera.updateProjectionMatrix();
+      animate();
 
-      // renderer update
-      renderer.setSize(sizes.width, sizes.height);
-      renderer.setPixelRatio(window.devicePixelRatio);
+      // resize
+      window.addEventListener('resize', () => {
+        // size update
+        sizes.width = window.innerWidth;
+        sizes.height = window.innerHeight;
+
+        // camera update
+        camera.aspect = sizes.width / sizes.height;
+        camera.updateProjectionMatrix();
+
+        // renderer update
+        renderer.setSize(sizes.width, sizes.height);
+        renderer.setPixelRatio(window.devicePixelRatio);
+      });
     });
   }, []);
 

@@ -64,7 +64,6 @@ function Works() {
     }
   };
 
-
   // スライドを非表示にする
   const closeModal = () => {
     setWorkZero(false);
@@ -143,9 +142,18 @@ function Works() {
 
       const meshes = [mesh0, mesh1, mesh2, mesh3, mesh4, mesh5];
 
+      // 平行光源
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+      directionalLight.position.set(0.25, 0.5, 1);
+      scene.add(directionalLight);
+
       meshes.forEach((mesh) => {
-        mesh.position.set(0, 0, 0);
         mesh.rotation.set(0, 0, -Math.PI / 18);
+        mesh.material.forEach((material) => {
+          material.side = THREE.DoubleSide;
+          material.transparent = true;
+          material.opacity = 0;
+        });
         scene.add(mesh);
       });
 
@@ -193,6 +201,24 @@ function Works() {
       }
 
       rot();
+
+      // フェードイン
+      let opacity = 0;
+      const fadeInFrame = () => {
+        opacity += 0.01;
+        meshes.forEach((mesh) => {
+          mesh.material.forEach((material) => {
+            material.opacity = Math.min(opacity, 1);
+          });
+        });
+        renderer.render(scene, camera);
+
+        if (opacity < 1) {
+          requestAnimationFrame(fadeInFrame);
+        }
+      };
+
+      fadeInFrame();
 
       // animation
       let frame;

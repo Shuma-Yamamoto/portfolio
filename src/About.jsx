@@ -23,7 +23,6 @@ function About() {
       0,
       1,
     );
-    camera.position.set(0, 0, 0);
 
     // renderer
     const renderer = new THREE.WebGLRenderer({
@@ -64,30 +63,40 @@ function About() {
       const pythonMaterial = new THREE.MeshLambertMaterial({ map: pythonTexture });
       const python = new THREE.Mesh(sphereGeometry, pythonMaterial);
       python.position.set(0.625, 1.75, -1);
+      python.material.transparent = true;
+      python.material.opacity = 0;
       scene.add(python);
 
       // Flask
       const flaskMaterial = new THREE.MeshLambertMaterial({ map: flaskTexture });
       const flask = new THREE.Mesh(sphereGeometry, flaskMaterial);
       flask.position.set(3.75, 1.75, -1);
+      flask.material.transparent = true;
+      flask.material.opacity = 0;
       scene.add(flask);
 
       // Rails
       const railsMaterial = new THREE.MeshLambertMaterial({ map: railsTexture });
       const rails = new THREE.Mesh(sphereGeometry, railsMaterial);
       rails.position.set(0.625, -1.375, -1);
+      rails.material.transparent = true;
+      rails.material.opacity = 0;
       scene.add(rails);
 
       // React
       const reactMaterial = new THREE.MeshLambertMaterial({ map: reactTexture });
       const react = new THREE.Mesh(sphereGeometry, reactMaterial);
       react.position.set(3.75, -1.375, -1);
+      react.material.transparent = true;
+      react.material.opacity = 0;
       scene.add(react);
 
       // AWS
       const awsMaterial = new THREE.MeshLambertMaterial({ map: awsTexture });
       const aws = new THREE.Mesh(sphereGeometry, awsMaterial);
       aws.position.set(6.875, -1.375, -1);
+      aws.material.transparent = true;
+      aws.material.opacity = 0;
       scene.add(aws);
 
       // カーソル制御
@@ -105,9 +114,30 @@ function About() {
       directionalLight.position.set(0.25, 0.5, 1);
       scene.add(directionalLight);
 
+      // フェードイン
+      const fadeIn = (object) => {
+        let opacity = 0;
+        const fadeInFrame = () => {
+          opacity += 0.01;
+          object.material.opacity = Math.min(opacity, 1);
+          renderer.render(scene, camera);
+
+          if (opacity < 1) {
+            requestAnimationFrame(fadeInFrame);
+          }
+        };
+
+        fadeInFrame();
+      };
+
+      fadeIn(python);
+      fadeIn(flask);
+      fadeIn(rails);
+      fadeIn(react);
+      fadeIn(aws);
+
       // animation
       let frame;
-
       const animate = () => {
         // FPSを30に下げる
         frame++;

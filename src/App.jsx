@@ -7,33 +7,26 @@ import { useState } from 'react';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('Top');
-  const [isFadeIn, setIsFadeIn] = useState(false);
 
   const renderPage = () => {
     if (currentPage === 'Top') {
-      return <Top isFadeIn={isFadeIn} />;
+      return <Top />;
     } else if (currentPage === 'About') {
-      return <About isFadeIn={isFadeIn} />;
+      return <About />;
     } else if (currentPage === 'Works') {
-      return <Works isFadeIn={isFadeIn} />;
+      return <Works />;
     }
   };
 
   const switchPage = (newPage) => {
-    setIsFadeIn(true);
     setCurrentPage(newPage);
-    setTimeout(() => {
-      setIsFadeIn(false);
-    }, 1000);
   };
 
   return (
     <>
-      <div className={`page ${isFadeIn ? 'page-fade-in' : ''}`}>
-        <div className={`page-fade-in`}>
-          <Header currentPage={currentPage} switchPage={switchPage} />
-          {renderPage()}
-        </div>
+      <div className={`page-fade-in`}>
+        <Header currentPage={currentPage} switchPage={switchPage} />
+        {renderPage()}
       </div>
     </>
   );

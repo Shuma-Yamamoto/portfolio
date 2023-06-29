@@ -44,11 +44,34 @@ function Top() {
 
       cube.scale.set(0.1, 0.1, 0.1);
       cube.position.set(0,-17,0);
+      cubeWrap.add(cube)
 
-      cubeWrap.add(cube);
+      // フェードイン
+      cubeWrap.traverse((child) => {
+        if (child.isMesh) {
+          child.material.transparent = true;
+          child.material.opacity = 0;
+        }
+      });
 
-    }, undefined, function ( error ) {
-      console.error( error );
+      let opacity = 0;
+      const fadeInFrame = () => {
+        opacity += 0.01;
+
+        cubeWrap.traverse((child) => {
+          if (child.isMesh) {
+            child.material.opacity = Math.min(opacity, 1);
+          }
+        });
+
+        renderer.render(scene, camera);
+
+        if (opacity < 1) {
+          requestAnimationFrame(fadeInFrame);
+        }
+      };
+
+      fadeInFrame();
     });
 
     // 平行光源
@@ -58,7 +81,6 @@ function Top() {
 
     // animation
     let frame;
-
     const animate = () => {
       // FPSを30に下げる
       frame++;

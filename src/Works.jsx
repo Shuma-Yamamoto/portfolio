@@ -125,7 +125,7 @@ function Works() {
       const boxGeometry = new THREE.BoxGeometry(3, 3, 0.25);
       const sideMaterial0 = new THREE.MeshBasicMaterial({ color: 0x06c755 });
       const sideMaterial1 = new THREE.MeshBasicMaterial({ color: 0x187fc4 });
-      const sideMaterial2 = new THREE.MeshBasicMaterial({ color: 0x333333 });
+      const sideMaterial2 = new THREE.MeshBasicMaterial({ color: 0x800014 });
       const commonMaterial = new THREE.MeshBasicMaterial({ color: 0xdddddd });
 
       const frontMaterial0 = new THREE.MeshBasicMaterial({ map: texture0 });

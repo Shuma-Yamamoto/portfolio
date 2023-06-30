@@ -4,11 +4,20 @@
 }
 
 body {
-  background-image: url('/pop.png');
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.container {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: #600b14;
+  border: solid 12.5px #a3f0e7;
 }
 
 @media (max-width: 1200px) {
